@@ -2,12 +2,16 @@ from database.connection import get_db_connection
 
 class Article:
     def __init__(self, id, title, content, author_id, magazine_id):
+        if id <= 0 or not title or not content or author_id <= 0 or magazine_id <= 0:
+            raise ValueError("Invalid article attributes")
         self.id = id
         self.title = title
         self.content = content
         self.author_id = author_id
         self.magazine_id = magazine_id
 
+    def __str__(self):
+        return f"Article: {self.title} by Author ID: {self.author_id} in Magazine ID: {self.magazine_id}"
     # Id    
     @property
     def id (self):

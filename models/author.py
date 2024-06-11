@@ -2,13 +2,15 @@ from database.connection import get_db_connection
 
 class Author:
     def __init__(self, id, name):
+        if id <= 0 or not name:
+            raise ValueError("Invalid id or name")
         self.id = id
         self.name = name
-        self.save_db()
+        self.articles = []
 
-    def __repr__(self):
-        return f'<Author {self.name}>'
-    
+    def __str__(self):
+        return f"Author: {self.name}"
+
     def save_db(self):
         conn = get_db_connection()
         cursor = conn.cursor()

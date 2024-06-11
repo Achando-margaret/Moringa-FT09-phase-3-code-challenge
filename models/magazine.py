@@ -1,15 +1,16 @@
 from database.connection import get_db_connection
 
 class Magazine:
-    def __init__(self, id, name, category):
+    def __init__(self, id, name, genre):
+        if id <= 0 or not name or not genre:
+            raise ValueError("Invalid magazine attributes")
         self.id = id
         self.name = name
-        self.category = category
-        self.save_db()
+        self.genre = genre
+        self.articles = []
 
-    def __repr__(self):
-        return f'<Magazine {self.name}>'
-    
+    def __str__(self):
+        return f"Magazine: {self.name}, Genre: {self.genre}"
     def save_db(self):
         conn = get_db_connection()
         cursor = conn.cursor()
